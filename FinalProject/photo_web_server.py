@@ -5,7 +5,7 @@ from pathlib import Path
 from datetime import datetime, date
 
 # file paths
-main_dir = "/home/jmbell97/Documents/RaspberryPi/FinalProject/img"
+main_dir = "/home/jmbell97/Documents/RaspberryPi/FinalProject/static/img"
 replacement = "/home/jmbell97/Documents/RaspberryPi/FinalProject"
 latest_file_replacement = "/home/jmbell97/Documents/RaspberryPi/FinalProject/static/img/img_"
 new_img_dir = "/home/jmbell97/Documents/RaspberryPi/FinalProject/static/images/new"
@@ -86,8 +86,9 @@ def check_photos():
     A function that uses the image file functions to render the latest image
     and update the state of whether there are new images since the last refresh.
     """
-    image_path = getLatestImagePath()
+    complete_image_path = getLatestImagePath()
     new_img_count = getTextFileCount()
-    return render_template('index.html', image_path=image_path, new_img_count=new_img_count)
+    display_image_path = complete_image_path.replace(replacement, "")
+    return render_template('index.html', image_path=complete_image_path, new_img_count=new_img_count, display_image_path=display_image_path)
         
 app.run(host="0.0.0.0", port=8500)    
