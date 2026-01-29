@@ -41,16 +41,21 @@ camera.still_size = (1640, 1232)
 
 try:
     while True:
+        #created file string
         file = new_image_dir + image_name
         file += str(counter)
         file += extension
+
         if (pir.motion_detected):
+            # turn LED on and take photo
             red_led.on()
             print("LED on. Taking a photo.")
             time.sleep(5)
             camera.take_photo(file)
             print("Photo Made. Saving photo to main folder.")
             time.sleep(1)
+
+            # try-catch for copying new images into main directory
             try:
                 shutil.copy(file, main_dir)
                 print(f"File {file} is now saved to directory: {main_dir}")
@@ -58,6 +63,8 @@ try:
             except Exception as e:
                 print(f"An error occurred {e}")
                 time.sleep(2)
+
+            # send email with new photo attached
             print("Sending Email Now.")
             time.sleep(2)
             subject = "Image " + str(counter)
